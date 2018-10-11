@@ -7,9 +7,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.shoppingapp.entities.Item;
@@ -27,7 +31,7 @@ public class OrderController {
 		Items = new HashMap<>();
 	}
 
-	@PostMapping("/cart/{customerId}")
+	/*@PostMapping("/cart/{customerId}")
 	public ResponseEntity<Set<Item>> addToCart(@RequestBody Item item, @PathVariable int customerId) {
 		Set<Item> sampleItem = Items.get(customerId);
 		if (sampleItem == null) {
@@ -39,13 +43,18 @@ public class OrderController {
 			Items.put(customerId, sampleItem);
 		}
 		return new ResponseEntity<Set<Item>>(sampleItem, HttpStatus.OK);
-	}
+	}*/
 
 
 	@PostMapping("/order")
-	public ResponseEntity<Order> submitOrder(@RequestBody Order order) {
+	public ResponseEntity<Order> placeOrder(@RequestBody Order order) {
 		ResponseEntity<Order> responseEntity = new ResponseEntity<Order>(orderSevice.submitOrder(order),
 				HttpStatus.OK);
+		return responseEntity;
+	}
+	@GetMapping("/order/{orderId}")
+	public ResponseEntity<Order> cancelOrder(@PathVariable int orderId/*, @RequestBody Order order*/){
+		ResponseEntity<Order>  responseEntity=new ResponseEntity<Order>(orderSevice.cancelOrder(orderId),HttpStatus.OK);
 		return responseEntity;
 	}
 }

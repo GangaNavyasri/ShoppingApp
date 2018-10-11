@@ -8,7 +8,8 @@ public interface OrderSevice {
 	public Order submitOrder(Order order);
 
 	public void deleteOrder(int orderId);
+	public Order updateOrder(Order order);
 
-	public void cancelOrder(int orderId);
+	public Order cancelOrder(int orderId);
 
 }

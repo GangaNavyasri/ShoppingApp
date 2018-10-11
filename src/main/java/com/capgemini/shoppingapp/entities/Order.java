@@ -14,19 +14,23 @@ public class Order {
 	private double totalAmount;
 	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private LocalDate date;
+	private String status;
 	private Item item;
 	public Order() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Order(int orderId, int customerId, double totalAmount, LocalDate date, Item item) {
+	
+	public Order(int orderId, int customerId, double totalAmount, LocalDate date, String status, Item item) {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
 		this.totalAmount = totalAmount;
 		this.date = date;
+		this.status = status;
 		this.item = item;
 	}
+
 	public int getOrderId() {
 		return orderId;
 	}
@@ -56,6 +60,12 @@ public class Order {
 	}
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {

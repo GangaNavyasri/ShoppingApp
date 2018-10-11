@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderSevice {
 
 	@Override
 	public Order submitOrder(Order order) {
-		return order;
+		return orderRepository.save(order);
 		
 	}
 
@@ -31,9 +31,18 @@ public class OrderServiceImpl implements OrderSevice {
 	}
 
 	@Override
-	public void cancelOrder(int orderId) {
-		// TODO Auto-generated method stub
+	public Order cancelOrder(int orderId) {
+		Optional<Order> optionalOrder = orderRepository.findById(orderId);
+		if(optionalOrder.isPresent())
+		optionalOrder.get().setStatus("Cancelled");
+		return orderRepository.save(optionalOrder.get());
 		
+	}
+
+	@Override
+	public Order updateOrder(Order order) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
