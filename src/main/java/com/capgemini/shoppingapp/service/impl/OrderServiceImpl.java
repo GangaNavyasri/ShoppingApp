@@ -1,5 +1,6 @@
 package com.capgemini.shoppingapp.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,11 @@ public class OrderServiceImpl implements OrderSevice {
 	}
 
 	@Override
-	public void deleteOrder(int orderId) {
-     orderRepository.deleteById(orderId);
+	public Order deleteOrder(int orderId) {
+		Optional<Order> optionalOrder = orderRepository.findById(orderId);
+		if(optionalOrder.isPresent())
+		optionalOrder.get().setStatus("Deleted");
+		return orderRepository.save(optionalOrder.get());
 	}
 
 	@Override
@@ -41,8 +45,15 @@ public class OrderServiceImpl implements OrderSevice {
 
 	@Override
 	public Order updateOrder(Order order) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Order> optionalOrder = orderRepository.findById(order.getOrderId());
+		if(optionalOrder.isPresent())
+			optionalOrder.get().setStatus("Updated");
+			return orderRepository.save(optionalOrder.get());
+	}
+
+	@Override
+	public List<Order> getAllOrders() {
+		return orderRepository.findAll();
 	}
 
 }
